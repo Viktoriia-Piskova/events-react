@@ -8,6 +8,7 @@ import Root from "./pages/Root";
 import Error from "./pages/Error";
 import EventsRoot from "./pages/EventsRoot";
 import { loader } from "./pages/Events";
+import { loader as eventDetailsLoader } from "./pages/EventDetail";
 
 const router = createBrowserRouter([
   {
@@ -21,9 +22,19 @@ const router = createBrowserRouter([
         element: <EventsRoot />,
         children: [
           { index: true, element: <Events />, loader: loader },
-          { path: ":eventId", element: <EventDetail /> },
           { path: "new", element: <NewEvent /> },
-          { path: ":eventId/edit", element: <EditEvent /> },
+          {
+            path: ":eventId",
+            loader: eventDetailsLoader,
+            id: 'event-details',
+            children: [
+              {
+                index: true,
+                element: <EventDetail />,
+              },
+              { path: "edit", element: <EditEvent /> },
+            ],
+          },
         ],
       },
     ],
