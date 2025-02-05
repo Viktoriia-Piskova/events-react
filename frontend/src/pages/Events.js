@@ -16,15 +16,13 @@ const Events = () => {
 export default Events;
 
 export async function loader() {
-  try {
-    const response = await fetch("http://localhost:8080/events");
+  const response = await fetch("http://localhost:8080/eventsz");
 
-    if (!response.ok) {
-      throw new Error("Could not load events");
-    } else {
-      return response;
-    }
-  } catch (error) {
-    console.log(error);
+  if (!response.ok) {
+    throw new Response(JSON.stringify({ message: "Could not fetch events" }), {
+      status: 500,
+    });
+  } else {
+    return response;
   }
 }
