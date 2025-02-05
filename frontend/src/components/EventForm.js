@@ -1,9 +1,12 @@
-import { useNavigate, Form } from "react-router-dom";
+import { useNavigate, Form, useNavigation } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 
 function EventForm({ method, event }) {
   const navigate = useNavigate();
+
+  const navigation = useNavigation();
+  const isSumbitting = navigation.state === "submitting";
   function cancelHandler() {
     navigate("..");
   }
@@ -17,7 +20,7 @@ function EventForm({ method, event }) {
           type="text"
           name="title"
           required
-          defaultValue={event ? event.title : ''}
+          defaultValue={event ? event.title : ""}
         />
       </p>
       <p>
@@ -27,7 +30,7 @@ function EventForm({ method, event }) {
           type="url"
           name="image"
           required
-          defaultValue={event ? event.image : ''}
+          defaultValue={event ? event.image : ""}
         />
       </p>
       <p>
@@ -37,7 +40,7 @@ function EventForm({ method, event }) {
           type="date"
           name="date"
           required
-          defaultValue={event ? event.date : ''}
+          defaultValue={event ? event.date : ""}
         />
       </p>
       <p>
@@ -47,14 +50,16 @@ function EventForm({ method, event }) {
           name="description"
           rows="5"
           required
-          defaultValue={event ? event.description : ''}
+          defaultValue={event ? event.description : ""}
         />
       </p>
       <div className={classes.actions}>
         <button type="button" onClick={cancelHandler}>
           Cancel
         </button>
-        <button>Save</button>
+        <button disabled={isSumbitting}>
+          {isSumbitting ? "Saving..." : "Save"}
+        </button>
       </div>
     </Form>
   );
