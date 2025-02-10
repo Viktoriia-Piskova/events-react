@@ -10,6 +10,7 @@ import EditEvent from "./pages/EditEvent";
 import Root from "./pages/Root";
 import Error from "./pages/Error";
 import EventsRoot from "./pages/EventsRoot";
+import NewsletterPage, {action as newsletterAction} from "./pages/NewsletterPage";
 import { action as eventAction } from "./components/EventForm";
 
 const router = createBrowserRouter([
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: 'newsletter',
+        element: <NewsletterPage />,
+        action: newsletterAction,
       },
     ],
   },
